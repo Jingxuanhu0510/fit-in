@@ -1,64 +1,64 @@
-# Fit In / 合身
+# Fit In / 迎合
 
-以身体姿态探索“服从、同化与自我”的浏览器互动作品。参与者根据扇语动作提示移动手部，也可以通过不完成动作保留拒绝的空间。
+通过摄像头、身体姿态与扇语动作，探索服从、同化与自我。
 
-项目仓库：[Jingxuanhu0510/fit-in](https://github.com/Jingxuanhu0510/fit-in)
+**[进入在线作品](https://fit-in-94sw.onrender.com/)**
 
-在线体验：[Fit In](https://fit-in-94sw.onrender.com/) · [交互方法解说与实录](https://fit-in-94sw.onrender.com/docs/demo.html)
+本次发布唯一源码：用户指定目录 `coding/fit in/coding/FIT IN FINAL.html`，原样作为 `index.html` 部署。此版使用摄像头，包含八组动作。
 
-## 体验与解说
+## 交互演示
 
-- [Hybrid 主程序](index.html)：鼠标演示 + 摄像头姿态互动，七组动作。
-- [交互方法解说与实录](docs/demo.html)：中文操作步骤、原项目视频节选。
-- [原 FINAL 版本](final.html)：保留八动作、身体和手部识别版本供对照。
+下面的动图直接在 README 中播放：参与者抬手靠近红色目标圈，命中后保持，右侧百分比增加，身体影像逐渐产生拼贴效果。
 
-![交互流程](docs/interaction-flow.svg)
+![交互实录：抬手靠近目标并保持，观察保持进度与同化指标](docs/interaction-demo.gif)
 
-![原项目演示画面](docs/original-demo.jpg)
+动图取自同一指定目录的《完整版本1.0.mp4》5–23 秒，为用户提供的历史实录，并非本次线上摄像头验收录像。
 
-[观看原项目演示片段](docs/original-demo.mp4) · 来自用户提供的《完整版本1.0.mp4》5–40 秒；历史录像不代表本次修复后的验收结果。
+[查看更长的视频片段](docs/original-demo.mp4)
 
-## 操作方法
+## 交互流程
 
-**鼠标模式**：点击 Enter Simulation，移动鼠标控制当前手部，把手移至目标区域后停住。双手动作自动镜像另一只手。不需要键盘，原 README 中 A/D、W/S 等说明与该版本实现不符，已删除。
+![交互流程图](docs/interaction-flow.svg)
 
-**摄像头模式**：点击 Enter With Body 并授权摄像头。让头、肩、双手完整入镜，自然站立完成校准。按屏幕指令完成右脸、左脸、遮面、封唇、心口、拂手和双手展示。位置、方向、主动移动与稳定性均会影响判定。摄像头模式需要 HTTPS 或 localhost，并能访问 MediaPipe 模型服务。
+1. 打开在线作品，等待识别模型加载，点击 **Initialize Census**。
+2. 允许摄像头访问，让头、肩、手臂和双手完整入镜，等待 **System Calibrating…** 进度完成。
+3. 看左侧动作图标与下方名称，将对应手部移到屏幕目标圈附近。
+4. 命中后圈变绿，保持进度增加；偏离目标会使进度回落。双手动作需要两只手同时满足目标。
+5. 保持达到 100% 或跳过计时耗尽，进入下一动作。完成八轮后显示结局；点击 **Restart** 重新开始。
 
-每轮 22 秒。稳定命中后累计保持进度，成功提高同化指标；超时记为抵抗。七轮结束比较同化与自我指标，输出 Absorbed 或 Unassimilated。摄像头丢失身体时暂停该轮计时。
+## 八组动作怎么做
+
+| 顺序 | 屏幕名称 | 操作说明 |
+|---|---|---|
+| 01 | SIDE COVER (R) | 右手靠近脸侧目标圈并保持。 |
+| 02 | SIDE COVER (L) | 左手靠近另一侧脸部目标圈。 |
+| 03 | MOUTH COVER (R) | 右手移到嘴部附近目标。 |
+| 04 | MOUTH COVER (L) | 左手移到嘴部附近目标。 |
+| 05 | T-POSE INTERSECT | 双手分别对准脸下方与侧边两个目标。 |
+| 06 | BOTH VERTICAL SEAL | 双手靠近嘴部下方两个相邻目标。 |
+| 07 | HEART PLEDGE | 右手靠近胸前目标。 |
+| 08 | FINAL CROSS | 双手在胸前上方目标交叠，两手还需彼此接近。 |
+
+画面为镜像，以屏幕目标圈和图标为准。同化（Assimilation）随命中增加，自我（Selfhood）随命中降低；未匹配时自我可恢复。
+
+没有参与或同化值低于 8 时，结局为“你就是你自己”；其他情况下，四舍五入后的同化值高于 55 显示“判定合格”，否则“判定不合格”。这些是作品的艺术表达。
+
+## 运行条件
+
+需要摄像头、HTTPS（或 localhost）以及可加载 MediaPipe 库和模型的网络。建议使用桌面浏览器，光线均匀，保持上半身完整入镜。此版没有鼠标模拟或键盘动作控制。
+
+界面跳过计时初值为 15，但原代码按动画帧递减；校准和保持进度也按帧累计，因此真实耗时受设备帧率影响。未检测到身体时不会推进动作计时。本次保留原版行为。
 
 ## 本地运行
-
-在项目目录执行：
 
 ```sh
 python -m http.server 8000
 ```
 
-打开 http://localhost:8000 。这是静态站点，无服务端、数据库或构建依赖。
+浏览器打开 `http://localhost:8000`。Render 使用静态站部署，发布目录为 `.`，无需构建。
 
-## Render 部署
+## 技术与验证
 
-创建 Static Site，连接 GitHub 仓库，发布目录设为 `.`，无需构建。使用 Render 提供的 HTTPS 地址进入摄像头模式。部署配置以仓库内实际配置文件为准。
+HTML / CSS / JavaScript / Canvas，MediaPipe PoseLandmarker 与 HandLandmarker。摄像头画面在浏览器内处理，源码没有上传摄像头视频的逻辑；库、模型和字体需要外部网络。
 
-## 版本与修复
-
-- 主入口来源：`fit-in-hybrid-body-interaction/index.html`。
-- `final.html` 来源：`FIANL WORK CODING/coding/FIT IN FINAL.html`，与 ZIP 中目录结构对应。
-- 修复 Hybrid 稳定速度计算中 `Math.max(..., 9)` 始终不小于 9、导致动作无法完成的问题。
-- 修复严格模块中未声明 `alienation` 的赋值导致启动失败的问题。
-- Node VM 执行真实脚本并模拟七组鼠标目标，已验证完成七轮并正常结束；真人摄像头识别尚未实测。
-
-## 回归检查
-
-```sh
-node tests/interaction.cjs
-```
-
-## 技术与隐私
-
-HTML、Canvas、原生 JavaScript、MediaPipe。摄像头推理在本地浏览器运行，当前页面没有上传或录制摄像头画面的代码；模型和库从外部服务加载。公开演示视频为用户提供素材的压缩节选。
-
-## 文件
-
-`index.html` 主互动；`final.html` 原版对照；`docs/demo.html` 中文演示解说；`docs/interaction-flow.svg` 流程图片；`docs/original-demo.mp4` 原项目实录节选。
-
+发布入口已与指定原文件核对 SHA-256，保持一致。历史 Hybrid 版的测试结果不适用于此版；真人摄像头识别仍需设备实测。
