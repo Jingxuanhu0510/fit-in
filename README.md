@@ -4,6 +4,8 @@
 
 项目仓库：[Jingxuanhu0510/fit-in](https://github.com/Jingxuanhu0510/fit-in)
 
+在线体验：[Fit In](https://fit-in-94sw.onrender.com/) · [交互方法解说与实录](https://fit-in-94sw.onrender.com/docs/demo.html)
+
 ## 体验与解说
 
 - [Hybrid 主程序](index.html)：鼠标演示 + 摄像头姿态互动，七组动作。
@@ -59,3 +61,4 @@ HTML、Canvas、原生 JavaScript、MediaPipe。摄像头推理在本地浏览�
 ## 文件
 
 `index.html` 主互动；`final.html` 原版对照；`docs/demo.html` 中文演示解说；`docs/interaction-flow.svg` 流程图片；`docs/original-demo.mp4` 原项目实录节选。
+
